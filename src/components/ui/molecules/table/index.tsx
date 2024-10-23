@@ -16,7 +16,7 @@ export const TableComponent = ({ items, handleOpenModal }: Props) => {
   return (
     <Table>
       <TableHead>
-        <TableRow className="h-10">
+        <TableRow className="h-10 pointer-events-none">
           {items[0] ? (
             Object.keys(items[0]).map((field) => (
               <TableHeader key={field}>{field}</TableHeader>
@@ -31,7 +31,7 @@ export const TableComponent = ({ items, handleOpenModal }: Props) => {
         {items?.map((item: any) => (
           <TableRow key={item.id} id={item.id} className="h-8">
             {Object.keys(item).map((field) => (
-              <TableCell key={`${item}_${field}`} variant={field}>
+              <TableCell key={`${item.id}_${field}`} variant={field}>
                 {item[field]}
               </TableCell>
             ))}

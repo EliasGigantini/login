@@ -1,3 +1,5 @@
+export const POST_ENDPOINT = "http://localhost:3000/posts/";
+export const POSTS_ENDPOINT = "http://localhost:3000/posts";
 export interface Post {
     id: string;
     title: string;
@@ -5,10 +7,9 @@ export interface Post {
 }
 
 export const getPosts = async () => {
-    const response = await fetch("http://localhost:3000/posts", {
+    const response = await fetch(POSTS_ENDPOINT, {
         method: "GET",
     });
-    console.log("GET POSTS!");
     return await response.json();
 };
 
@@ -21,7 +22,7 @@ const incrementPostId = async (): Promise<string> => {
 }
 
 export const createPost = async (title: string): Promise<void> => {
-    await fetch(`http://localhost:3000/posts/`, {
+    await fetch(POSTS_ENDPOINT, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -37,7 +38,7 @@ export const createPost = async (title: string): Promise<void> => {
 }
 
 export const updatePost = async (id: string, title: string): Promise<void> => {
-    await fetch(`http://localhost:3000/posts/${id}`, {
+    await fetch(`${POST_ENDPOINT} + ${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -51,7 +52,7 @@ export const updatePost = async (id: string, title: string): Promise<void> => {
   };
 
 export const deletePost = async (id: string): Promise<void> => {
-    await fetch(`http://localhost:3000/posts/${id}`, {
+    await fetch(`${POST_ENDPOINT} + ${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

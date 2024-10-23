@@ -1,4 +1,12 @@
-import React, { InputHTMLAttributes, TextareaHTMLAttributes } from "react";
+import React, {
+  InputHTMLAttributes,
+  TextareaHTMLAttributes,
+  useState,
+} from "react";
+
+export const inputStyleVariants = {
+  default: "h-10 bg-white rounded-full px-4",
+};
 
 interface Props {
   type?: React.HTMLInputTypeAttribute;
@@ -55,7 +63,7 @@ export const TextArea = ({
     <label className={`flex flex-col gap-1 ${labelStyle} ${errorText}`}>
       {labelText}
       <textarea
-        className={`resize-y rounded-lg caret-blu max-h-96 min-h-8 ${styling}`}
+        className={`resize-y rounded-lg caret-blu max-h-96 min-h-10 ${styling} bg-white rounded-full px-4`}
         {...props}
       />
       <p
@@ -68,46 +76,20 @@ export const TextArea = ({
 };
 
 export const Switch = ({ labelText, ...props }: InputProps) => {
-  //   return (
-  //     <label className="inline-flex items-center cursor-pointer">
-  //       <input type="checkbox" value="" className="sr-only peer" />
-  //       <div className="relative w-11 h-6 bg-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blu rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-cream after:border-cream after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blu"></div>
-  //       <span className="ms-2 text-sm">Casual Title Generation</span>
-  //     </label>
-  //   );
+  const [checked, setChecked] = useState(false);
 
-  //   return (
-  //     <div className="">
-  //       <TextArea
-  //         inputStyle="peer peer-checked:visible"
-  //         labelText="Title"
-  //         defaultValue="Title"
-  //       />
-  //       <Input
-  //         inputStyle="peer peer-checked:invisible"
-  //         labelText="Title"
-  //         value="Title"
-  //       />
-  //       <label className="inline-flex items-center cursor-pointer">
-  //         <input type="checkbox" value="" className="sr-only peer" />
-  //         <div className="relative w-11 h-6 bg-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blu rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-cream after:border-cream after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blu"></div>
-  //         <span className="ms-2 text-sm">Use Text Area</span>
-  //       </label>
-  //     </div>
-  //   );
-
+  const handleCheckbox = () => {
+    setChecked(!checked);
+  };
   return (
-    <div className="">
-      <Input
-        inputStyle="peer peer-checked:invisible"
-        labelText="Title"
-        value="Title"
+    <label className="flex flex-row items-center">
+      <input
+        type="checkbox"
+        checked={checked}
+        defaultChecked={false}
+        onChange={handleCheckbox}
       />
-      <label className="inline-flex items-center cursor-pointer">
-        <input type="checkbox" value="" className="sr-only peer" />
-        <div className="relative w-11 h-6 bg-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blu rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-cream after:border-cream after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blu"></div>
-        <span className="ms-2 text-sm">Use Text Area</span>
-      </label>
-    </div>
+      <span className="">Checkbox</span>
+    </label>
   );
 };

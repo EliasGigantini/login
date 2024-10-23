@@ -4,13 +4,14 @@ import {
   updatePost,
   deletePost,
   Post,
-} from "../../../../lib/restUtilis";
+} from "../../../../utils/api";
 import { ModalSection, ModalRow } from "./components";
-import { Input, TextArea, Switch } from "./inputs";
+import { Input, TextArea, Switch, inputStyleVariants } from "./inputs";
 import { Button, buttonVariants } from "../../button";
 
 interface Props {
   post?: Post;
+  modalType?: string;
   visibility: boolean;
   toggleModalVisibility: () => void;
   handleChange: ({ id, title, views }: Partial<Post>) => void;
@@ -21,6 +22,7 @@ const PostModal = ({
   visibility,
   toggleModalVisibility,
   handleChange,
+  modalType,
 }: Props) => {
   const [modified, setModified] = useState(false);
   const [titleError, setTitleError] = useState("");
@@ -32,6 +34,7 @@ const PostModal = ({
     switch (actionType) {
       case "create":
         if (post?.title !== "") {
+          console.log("CREATE");
           return createPost(post?.title || "");
         }
         return setTitleError("Title field is empty");
@@ -39,6 +42,7 @@ const PostModal = ({
       case "update":
         if (post?.title !== "") {
           if (modified) {
+            console.log("UPDATE");
             return updatePost(post?.id || "", post?.title || "");
           }
           return setTitleError("Nothing changed");
@@ -46,6 +50,7 @@ const PostModal = ({
         return setTitleError("Title field is empty");
 
       case "delete":
+        console.log("DELETE");
         return deletePost(post?.id || "");
 
       default:
@@ -75,7 +80,6 @@ const PostModal = ({
   ) => {
     validateTitle();
     handleChange({ title: event.target.value });
-    console.log("HANDLE TITLE CALLED!");
     setModified(true);
   };
 
@@ -92,17 +96,23 @@ const PostModal = ({
     validateTitle();
   }, [post?.title]);
 
-  return (
-    <div
-      className={`${visibility ? "absolute top-0 left-0" : "hidden"} flex items-center justify-center h-screen w-screen pointer-events-none overflow-hidden`}
-    >
-      <form
-        onSubmit={submitHandler}
-        className="flex flex-col m-6 p-4 gap-4 relative w-96 text-base rounded-2xl bg-pure shadow-md pointer-events-auto overflow-hidden"
-      >
-        <ModalSection variant="exit" action={closeModal} />
-        <ModalSection variant="column" className="pt-8">
-          {/* <Input
+  const GetModalType = () => {
+    switch (modalType) {
+      case "textarea":
+        return (
+          <TextArea
+            type="text"
+            labelText="Title"
+            defaultValue={post?.title || ""}
+            controlString={titleError}
+            onChange={handleTitle}
+            required={true}
+          />
+        );
+
+      default:
+        return (
+          <Input
             type="text"
             labelText="Title"
             variant={inputStyleVariants.default}
@@ -110,16 +120,22 @@ const PostModal = ({
             controlString={titleError}
             onChange={handleTitle}
             required={true}
-          /> */}
-          {/* <TextArea
-            type="text"
-            labelText="Title"
-            defaultValue={post?.title || ""}
-            controlString={titleError}
-            onChange={handleTitle}
-            required={true}
-          /> */}
-          <Switch labelText="Title" />
+          />
+        );
+    }
+  };
+
+  return (
+    <div
+      className={`${visibility ? "absolute" : "hidden"} flex items-center justify-center h-full w-full pointer-events-none overflow-hidden`}
+    >
+      <form
+        onSubmit={submitHandler}
+        className="flex flex-col m-6 p-4 gap-4 relative w-96 text-base rounded-2xl bg-pure shadow-md pointer-events-auto overflow-hidden"
+      >
+        <ModalSection variant="exit" action={closeModal} />
+        <ModalSection variant="column" className="pt-8">
+          {GetModalType()}
         </ModalSection>
         <ModalSection variant="row">
           <ModalRow title="Id" data={post?.id ?? ""} />
@@ -164,7 +180,7 @@ const PostModal = ({
                 <p>Update</p>
               </Button>
               <Button
-                type="button"
+                type="submit"
                 className="grow"
                 variant={buttonVariants.delete}
                 onClick={() => handlePostAction("delete")}

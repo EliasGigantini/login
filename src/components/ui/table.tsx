@@ -36,7 +36,12 @@ const TableHead = ({ className, ...props }: TableHeadProps) => {
 };
 
 const TableRow = ({ className, ...props }: TableRowProps) => {
-  return <tr className={`text-left ${className}`} {...props} />;
+  return (
+    <tr
+      className={`text-left transition-all duration-200 hover:bg-blu hover:translate-x-2 hover:text-pure ${className}`}
+      {...props}
+    />
+  );
 };
 
 const TableHeader = ({ className, ...props }: TableHeaderProps) => {

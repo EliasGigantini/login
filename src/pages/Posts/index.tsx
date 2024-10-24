@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { Plus } from "lucide-react";
-import { TableComponent } from "../../components/ui/molecules/table";
+import { TableComponent } from "../../components/ui/molecules/Table";
 import { Post, getPosts } from "../../utils/api";
-import { PostModal } from "../../components/ui/molecules/modal";
+import { PostModal } from "../../components/ui/molecules/Modal";
 
-export const Table = ({}) => {
+export const Posts = ({}) => {
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState([]);
   const [post, setPost] = useState<Post | null>(null);

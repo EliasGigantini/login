@@ -46,24 +46,13 @@ export const Dashboard = ({}) => {
         </div>
         <ul className="h-full w-full transition-all duration-300 text-center bg-cream">
           {DASHBOARD.map((element) => (
-            // <li
-            //   key={element.name}
-            //   className={`${location.pathname === element.href ? "font-medium bg-blu text-pure" : ""} ${open ? "" : "flex items-center justify-center"} h-12 transition-all duration-200 text-base cursor-pointer grow p-4`}
-            //   onClick={() => handleNavigation(element.href)}
-            // >
-            //   <div
-            //     className={`w-full h-8 leading-none bg-red flex ${open ? "text-base justify-end" : "text-xs justify-center items-center"}`}
-            //   >
-            //     {element.name}
-            //   </div>
-            // </li>
             <li
               key={element.name}
-              className={`${location.pathname === element.href ? "font-medium bg-blu text-pure" : ""} ${open ? "flex justify-end" : "flex items-center justify-center"} h-12 transition-all duration-200 text-base cursor-pointer grow p-4`}
+              className={`${location.pathname === element.href ? "font-medium bg-blu text-pure" : ""} ${open ? "" : "flex items-center justify-center"} h-12 transition-all duration-200 text-base cursor-pointer grow p-4`}
               onClick={() => handleNavigation(element.href)}
             >
               <div
-                className={`w-full h-8 leading-none flex items-center ${open ? "text-base justify-end" : "text-xs justify-center"}`}
+                className={`w-full h-8 leading-none flex ${open ? "text-base justify-end" : "text-xs justify-center items-center"}`}
               >
                 {element.name}
               </div>

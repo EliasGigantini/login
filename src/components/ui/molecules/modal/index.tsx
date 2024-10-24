@@ -6,7 +6,7 @@ import {
   deletePost,
   Post,
 } from "../../../../utils/api";
-import { ModalSection, ModalRow } from "./components";
+import { ModalSection, ModalRow } from "./inputComp";
 import { InputVariants } from "./inputs/inputs";
 import { Button, buttonVariants } from "../../button";
 import { zodResolver } from "@hookform/resolvers/zod";

@@ -38,7 +38,7 @@ export const createPost = async (title: string): Promise<void> => {
 }
 
 export const updatePost = async (id: string, title: string): Promise<void> => {
-    await fetch(`${POST_ENDPOINT} + ${id}`, {
+    await fetch(`${POST_ENDPOINT}${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -52,7 +52,7 @@ export const updatePost = async (id: string, title: string): Promise<void> => {
   };
 
 export const deletePost = async (id: string): Promise<void> => {
-    await fetch(`${POST_ENDPOINT} + ${id}`, {
+    await fetch(`${POST_ENDPOINT}${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

@@ -63,7 +63,7 @@ export const Table = ({}) => {
           {post && (
             <PostModal
               post={post}
-              modalType="input"
+              variant="input"
               visibility={open}
               toggleModalVisibility={toggleModalVisibility}
               handleChange={handleChange}

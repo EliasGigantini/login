@@ -1,29 +1,19 @@
 {
   "posts": [
     {
-      "id": "20",
-      "title": "another one",
-      "views": 1200
-    },
-    {
       "id": "25",
-      "title": "ano",
+      "title": "acasd handleUpdate func",
       "views": 1200
     },
     {
       "id": "26",
-      "title": "another title",
+      "title": "anas",
       "views": 2230
     },
     {
       "id": "29",
       "title": "Test 2 CreatePost",
       "views": 234
-    },
-    {
-      "id": "30",
-      "title": "Nosda",
-      "views": 98
     },
     {
       "id": "31",
@@ -46,19 +36,9 @@
       "views": 25
     },
     {
-      "id": "35",
-      "title": "Testing title",
-      "views": 20
-    },
-    {
       "id": "36",
       "title": "klkljl",
       "views": 320
-    },
-    {
-      "id": "37",
-      "title": "Prosad",
-      "views": 530
     },
     {
       "id": "38",
@@ -67,7 +47,7 @@
     },
     {
       "id": "39",
-      "title": "Vediamo se funziona",
+      "title": "Vediamo se fun",
       "views": 650
     },
     {
@@ -83,6 +63,26 @@
     {
       "id": "42",
       "title": "prova prova prova",
+      "views": 0
+    },
+    {
+      "id": "43",
+      "title": "another one",
+      "views": 0
+    },
+    {
+      "id": "56",
+      "title": "provona",
+      "views": 0
+    },
+    {
+      "id": "57",
+      "title": "Asda",
+      "views": 0
+    },
+    {
+      "id": "58",
+      "title": "testing handleCreate func",
       "views": 0
     }
   ],

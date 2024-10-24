@@ -1,15 +1,40 @@
 #root {
-  /* max-width: 1280px; */
   margin: 0 auto;
-  /* padding: 2rem; */
 }
 
-/* table {
-  table-layout: fixed;
-  width: 100%;
-  border-collapse: collapse;
-} */
+li {
+  border-radius: 2rem;
+  margin: 0.5rem;
+  padding: 4rem;
+}
 
+tr {
+  padding: 1rem;
+}
+
+td {
+  text-align: center;
+  font-size: 12px !important;
+}
+
+td:nth-child(2) {
+  text-align: left;
+  font-size: 16px !important;
+}
+
+td:first-child, td:last-child {
+  opacity: 0.5;
+}
+
+td:first-child{
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+}
+
+td:last-child {
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   a:nth-of-type(2) .logo {

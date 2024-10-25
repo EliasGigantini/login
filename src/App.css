@@ -4,7 +4,7 @@
 
 li {
   border-radius: 2rem;
-  margin: 0.5rem;
+  margin: 0.25rem;
   padding: 4rem;
 }
 
@@ -40,6 +40,11 @@ td:last-child {
   a:nth-of-type(2) .logo {
     animation: logo-spin infinite 20s linear;
   }
+}
+
+@keyframes example {
+  0% { height: 0; }
+  100% { height: auto ;}
 }
 
 .read-the-docs {

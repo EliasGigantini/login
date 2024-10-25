@@ -1,6 +1,7 @@
 import React, {
   InputHTMLAttributes,
   TextareaHTMLAttributes,
+  useEffect,
   useState,
 } from "react";
 import { useController, useFormContext } from "react-hook-form";
@@ -11,7 +12,7 @@ export const inputStyleVariants = {
 
 interface Props {
   type?: React.HTMLInputTypeAttribute;
-  labelText?: string;
+  labelText: string;
   labelStyle?: string;
   variant?: string;
   inputStyle?: string;
@@ -20,12 +21,14 @@ interface Props {
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement>, Props {
   name: string;
+  id: string;
 }
 
 interface TextAreaProps
   extends TextareaHTMLAttributes<HTMLTextAreaElement>,
     Props {
   name: string;
+  id: string;
 }
 
 interface InputsVariantProps {
@@ -33,6 +36,8 @@ interface InputsVariantProps {
   value: string;
   handleChange: (e: any) => void;
   errorMessage?: string | "";
+  name: string;
+  id: string;
 }
 
 export const Input = ({
@@ -44,6 +49,7 @@ export const Input = ({
   labelStyle,
   required,
   name,
+  id,
   ...props
 }: InputProps) => {
   const { control } = useFormContext();
@@ -53,9 +59,14 @@ export const Input = ({
 
   const errorText = controlString ? "text-red" : "";
   const styling = inputStyle + " " + variant + " " + errorText;
+  const inputTitle = labelText[0].toUpperCase() + labelText.slice(1);
+
   return (
     <label className={`flex flex-col gap-1 ${labelStyle} ${errorText}`}>
-      {labelText}
+      <div className="flex flex-row w-full justify-between items-center">
+        <p>{inputTitle}</p>
+        <p className="text-xs">id: {id}</p>
+      </div>
       <input
         type={type}
         value={value ?? ""}
@@ -79,6 +90,7 @@ export const TextArea = ({
   labelText,
   labelStyle,
   name,
+  id,
   ...props
 }: TextAreaProps) => {
   const { control } = useFormContext();
@@ -88,11 +100,16 @@ export const TextArea = ({
 
   const errorText = controlString ? "text-red" : "";
   const styling = inputStyle + " " + variant + " " + errorText;
+  const inputTitle = labelText[0].toUpperCase() + labelText.slice(1);
 
   return (
     <label className={`flex flex-col gap-1 ${labelStyle} ${errorText}`}>
-      {labelText}
+      <div className="flex flex-row w-full justify-between items-center">
+        <p>{inputTitle}</p>
+        <p className="text-xs">id: {id}</p>
+      </div>
       <textarea
+        name={name}
         value={value ?? ""}
         className={`resize-y rounded-lg caret-blu max-h-96 min-h-10 ${styling} bg-white rounded-full px-4`}
         onChange={onChange}
@@ -131,17 +148,24 @@ export const InputVariants = ({
   value,
   handleChange,
   errorMessage,
+  name,
+  id,
 }: InputsVariantProps) => {
+  useEffect(() => {
+    console.log("Error Messsage Input: " + errorMessage);
+  }, [errorMessage]);
+
   switch (variant) {
     case "textarea":
       return (
         <TextArea
           type="text"
-          labelText="Title"
+          labelText={name}
           value={value ?? ""}
           controlString={errorMessage || ""}
           onChange={handleChange}
-          name="title"
+          name={name}
+          id={id}
         />
       );
 
@@ -149,12 +173,13 @@ export const InputVariants = ({
       return (
         <Input
           type="text"
-          labelText="Title"
+          labelText={name}
           variant={inputStyleVariants.default}
           value={value ?? ""}
           controlString={errorMessage || ""}
           onChange={handleChange}
-          name="title"
+          name={name}
+          id={id}
         />
       );
   }

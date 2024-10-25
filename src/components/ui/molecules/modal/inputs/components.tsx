@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 import { X } from "lucide-react";
-import { Button, buttonVariants } from "../../button";
+import { Button, buttonVariants } from "../../../button";
 
 interface Props {
   children?: ReactElement | ReactElement[];
@@ -10,8 +10,9 @@ interface Props {
 }
 
 interface RowProps {
-  title: string;
+  title?: string;
   data: string | number;
+  icon?: ReactElement;
 }
 
 const sectionStyleVariants = {
@@ -52,9 +53,17 @@ const ModalSectionColumn = ({ children, className }: Partial<Props>) => {
   );
 };
 
-const ModalRow = ({ title, data }: RowProps) => {
+const ModalRow = ({ title, data, icon }: RowProps) => {
+  if (icon) {
+    return (
+      <div className="flex justify-center items-center gap-1 flex-1">
+        <>{icon}</>
+        <p>{data}</p>
+      </div>
+    );
+  }
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-center gap-1 flex-1">
       <p>{title}:</p>
       <p>{data}</p>
     </div>

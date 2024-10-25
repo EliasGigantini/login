@@ -3,7 +3,11 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      transitionTimingFunction: {
+        "dash-expo": "cubic-bezier(0.47, 0.47, 0.53, 0.99)",
+      },
+    },
     colors: {
       pure: "#FFFFFF",
       white: "#F1F2F4",

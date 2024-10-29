@@ -2,7 +2,6 @@ import React, {
   InputHTMLAttributes,
   TextareaHTMLAttributes,
   useEffect,
-  useState,
 } from "react";
 import { useController, useFormContext } from "react-hook-form";
 
@@ -120,25 +119,6 @@ export const TextArea = ({
       >
         Err: {controlString}
       </p>
-    </label>
-  );
-};
-
-export const Switch = ({ labelText, ...props }: InputProps) => {
-  const [checked, setChecked] = useState(false);
-
-  const handleCheckbox = () => {
-    setChecked(!checked);
-  };
-  return (
-    <label className="flex flex-row items-center">
-      <input
-        type="checkbox"
-        checked={checked}
-        defaultChecked={false}
-        onChange={handleCheckbox}
-      />
-      <span className="">Checkbox</span>
     </label>
   );
 };

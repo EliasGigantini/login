@@ -5,6 +5,7 @@ import { POSTS_ENDPOINT, POST_ENDPOINT, COMMENTS_ENDPOINT, COMMENT_ENDPOINT, USE
 import { getPostBody, getUpdatePostBody } from "./Posts";
 import { getCommentBody, getUpdateCommentBody } from "./Comments";
 import { getUserBody, getUpdateUserBody  } from "./Users";
+import { any } from "zod";
 
 interface Props {
   post?: Post | null,
@@ -24,6 +25,17 @@ export const getData = async (uri: string) => {
   });
 
   return await response.json();
+}
+
+export const getCommentsForPost = async (id: string) => {
+  const response = await fetch(COMMENTS_ENDPOINT, {
+    method: "GET",
+  });
+
+  if (!response.ok) throw new Error("Networking error getting comments for post");
+
+  const comments = await response.json();
+  return comments?.filter((comment: Partial<Comment>) => comment.postId === id);
 }
 
 export const postData = async ({ post, comment, user, posts, comments, users }: CreateProps) => {
@@ -129,4 +141,37 @@ const getDeleteUri = ({post, comment, user}: Props) => {
   if (user) return { uri: USER_ENDPOINT, id: user.id }
 
   return { uri: "", id: "" }
+}
+
+export const isValidField = (field: any) => {
+  if (field !== null && field !== "" && field !== undefined) return true;
+
+  return false;
+}
+
+export const fixCommentsCounter = async (posts: Post[], comments: Comment[]) => {
+  if (comments.length === 0) throw new Error("Invalid array.");
+
+  let commentsToPostMap: { [key: string] : number } = {};
+  comments.forEach((comment) => {
+    if (isValidField(comment.postId)) {
+      console.log("Comment " + comment.postId + " increasing... " + commentsToPostMap[comment.postId]);
+      commentsToPostMap[comment.postId] = (commentsToPostMap[comment.postId] || 0) + 1;
+    }
+  })
+
+  posts.forEach(async (post) => {
+    if (!isValidField(post.id)) throw new Error("Post has invalid id!");
+    
+    const result = await updateData({ post: {
+      id: post.id,
+      title: post.title,
+      views: post.views,
+      comments: commentsToPostMap[post.id]
+    }});
+
+    console.log("For Post: " + post.id + " we found " + commentsToPostMap[post.id] + " comments");
+
+    if (!result) throw new Error("Updated data had an error...");
+  })
 }

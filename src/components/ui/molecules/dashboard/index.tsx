@@ -24,7 +24,7 @@ export const Dashboard = ({}) => {
   return (
     <div className="absolute top-0 left-0 h-full w-full flex flex-row gap-8 text-black">
       <div
-        className={`group h-full ${open ? "w-80" : "w-24"} transition-all ${PARENT_ANIMATION_DURATION} bg-cream pt-24 flex flex-col gap-8`}
+        className={`group h-full relative ${open ? "w-80" : "w-24"} transition-all ${PARENT_ANIMATION_DURATION} bg-cream pt-24 flex flex-col gap-8`}
         onMouseEnter={handleMouseHover}
         onMouseLeave={handleMouseHover}
       >

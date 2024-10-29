@@ -139,7 +139,6 @@ export const Users = ({}) => {
               handleCreate={handleCreate}
               handleUpdate={handleUpdate}
               handleDelete={handleDelete}
-              errorMessage={errors.user?.firstName?.message}
             />
           )}
         </>

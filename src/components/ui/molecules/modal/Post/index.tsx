@@ -3,9 +3,13 @@ import { ModalSection, ModalRow } from "../inputs/components";
 import { InputVariants } from "../inputs/inputs";
 import { Button, buttonVariants } from "../../../button";
 import { MessageCircle, Eye } from "lucide-react";
-import { IComments, Post } from "../../../../../utils/api/Posts";
-import { useState } from "react";
+import { Post } from "../../../../../utils/api/Posts";
+import { Comment } from "../../../../../utils/api/Comments";
+import { useEffect, useState } from "react";
 import { AnimationDuration } from "../../Dashboard/components";
+import { User } from "../../../../../utils/api/Users";
+import { Dropdown } from "../../../Dropdown";
+import { ModalComments } from "./components";
 
 interface Props {
   methods: any;
@@ -13,12 +17,9 @@ interface Props {
   handleUpdate?: () => void;
   handleCreate?: () => void;
   handleDelete?: () => void;
+  handleComment: () => void;
+  users: User[];
   errorMessage: string | undefined;
-}
-
-interface Props2 {
-  comments: IComments[];
-  show: boolean;
 }
 
 const PostModal = ({
@@ -27,47 +28,74 @@ const PostModal = ({
   handleUpdate,
   handleCreate,
   handleDelete,
+  handleComment,
+  users,
   errorMessage,
 }: Props) => {
   const post = methods.getValues();
 
+  const [comments, setComments] = useState([]);
   const [showComments, setShowComments] = useState(false);
+
+  const fetchComments = async () => {
+    const post = methods.getValues().post;
+    if (!post) throw new Error("Unable to find a Post");
+
+    setComments(methods.getValues().postComments);
+  };
 
   const handleChange = ({ id, title }: Partial<Post>) => {
     const post = methods.getValues().post;
     if (id && post) {
       const updateId = { ...post, id };
-      methods.setValue("post", updateId);
+      return methods.setValue("post", updateId);
     }
 
     if (title && post) {
       const updateTitle = { ...post, title };
-      methods.setValue("post", updateTitle);
+      return methods.setValue("post", updateTitle);
     }
   };
 
-  const toggleCommentsVisibility = () =>
-    setShowComments((prevState) => !prevState);
+  const handleCommentChange = ({ text }: Partial<Comment>) => {
+    const comment = methods.getValues().comment;
+    console.log("Handle Comment Change");
 
-  const ModalComments = ({ comments, show }: Props2) => {
-    return (
-      <div
-        className={`${show ? "visible max-h-32 overflow-y-scroll" : "invisible h-0"}`}
-      >
-        {comments.map((comment, index) => (
-          <div
-            key={comment.comment.id}
-            className="flex flex-row gap-2 items-center"
-          >
-            <p className="font-medium text-sm">
-              {comment.user.firstName} {comment.user.lastName}:
-            </p>
-            <p className="text-sm">{comment.comment.text}</p>
-          </div>
-        ))}
-      </div>
-    );
+    if (!comment) console.log("No Comment");
+    if (!text) console.log("No Text");
+
+    if (comment && text) {
+      const updateText = { ...comment, text };
+      methods.setValue("comment", updateText);
+      console.log("Setting Comment Value");
+    }
   };
+
+  const getUserNameFromId = ({ id }: Partial<User>) => {
+    const username: User[] = users.filter((user) => user.id === id);
+
+    if (username.length > 1)
+      throw new Error("Found many users with the same Id");
+
+    return username[0].firstName + " " + username[0].lastName;
+  };
+
+  const handleUserChange = ({ id }: Partial<User>) => {
+    const comment = methods.getValues().comment;
+    if (comment && id) {
+      const user = getUserNameFromId({ id });
+      const updatedComment = { ...comment, user };
+      methods.setValue("comment", updatedComment);
+    }
+  };
+
+  const toggleCommentsVisibility = () => {
+    setShowComments((prevState) => !prevState);
+  };
+
+  useEffect(() => {
+    fetchComments();
+  }, []);
 
   return (
     <div
@@ -103,16 +131,9 @@ const PostModal = ({
             >
               <ModalRow
                 icon={<MessageCircle className="h-4 w-4" />}
-                data={methods.getValues().post.comments.length ?? "0"}
+                data={methods.getValues().post?.comments}
               />
             </Button>
-          </ModalSection>
-
-          <ModalSection variant="column">
-            <ModalComments
-              comments={methods.getValues().post.comments}
-              show={showComments}
-            />
           </ModalSection>
 
           <ModalSection variant="row">
@@ -165,16 +186,43 @@ const PostModal = ({
             )}
           </ModalSection>
 
-          <ModalSection variant="column">
-            <Button
-              type="button"
-              className="grow"
-              variant={buttonVariants.action}
-              onClick={handleUpdate}
-            >
-              <p>Comment</p>
-            </Button>
-          </ModalSection>
+          {showComments ? (
+            <>
+              <ModalSection variant="column">
+                <span />
+                <span />
+
+                <ModalComments
+                  comments={methods.getValues().postComments}
+                  show={showComments}
+                />
+
+                <InputVariants
+                  variant={"input"}
+                  value={methods.getValues().comment.text}
+                  handleChange={(event) =>
+                    handleCommentChange({ text: event.target.value })
+                  }
+                  name="text"
+                  id={methods.getValues().post.id}
+                  errorMessage={errorMessage}
+                />
+              </ModalSection>
+              <ModalSection variant="row">
+                <Dropdown users={users} methods={methods} />
+                <Button
+                  type="button"
+                  className="grow"
+                  variant={buttonVariants.action}
+                  onClick={handleComment}
+                >
+                  <p>Comment</p>
+                </Button>
+              </ModalSection>
+            </>
+          ) : (
+            <></>
+          )}
         </form>
       </FormProvider>
     </div>

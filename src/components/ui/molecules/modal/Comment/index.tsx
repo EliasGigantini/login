@@ -34,7 +34,7 @@ const CommentModal = ({
 
   return (
     <div
-      className={`${comment?.visibility ? "absolute" : "hidden"} flex items-center justify-center h-full w-full pointer-events-none overflow-hidden`}
+      className={`${comment?.visibility ? "fixed -ml-12" : "hidden"} flex items-center justify-center h-full w-full pointer-events-none overflow-hidden`}
     >
       <FormProvider {...methods}>
         <form

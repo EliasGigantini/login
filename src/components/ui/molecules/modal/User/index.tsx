@@ -11,7 +11,6 @@ interface Props {
   handleUpdate?: () => void;
   handleDelete?: () => void;
   handleClose?: () => void;
-  errorMessage: string | undefined;
 }
 
 const UserModal = ({
@@ -20,7 +19,6 @@ const UserModal = ({
   handleUpdate,
   handleDelete,
   handleClose,
-  errorMessage,
 }: Props) => {
   const user = methods.getValues();
 
@@ -57,6 +55,7 @@ const UserModal = ({
                 handleChange({ firstName: event.target.value })
               }
               name="firstName"
+              id={methods.getValues().user.id}
               errorMessage={methods.formState.errors.user?.firstName?.message}
             />
             <InputVariants
@@ -66,6 +65,7 @@ const UserModal = ({
                 handleChange({ lastName: event.target.value })
               }
               name="lastName"
+              id={methods.getValues().user.id}
               errorMessage={methods.formState.errors.user?.lastName?.message}
             />
             <InputVariants
@@ -75,6 +75,7 @@ const UserModal = ({
                 handleChange({ age: event.target.value })
               }
               name="age"
+              id={methods.getValues().user.id}
               errorMessage={methods.formState.errors.user?.age?.message}
             />
           </ModalSection>

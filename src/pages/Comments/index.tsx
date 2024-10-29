@@ -14,7 +14,7 @@ interface Props {
   visibility: boolean;
 }
 
-export const Comments = ({}) => {
+export const Comments = () => {
   const [loading, setLoading] = useState(true);
   const [comments, setComments] = useState([]);
 
@@ -36,7 +36,11 @@ export const Comments = ({}) => {
   const visibility = watch("visibility");
 
   const handleGetComments = async () => {
-    setComments(await getData(COMMENTS_ENDPOINT));
+    const unfilteredComments = await getData(COMMENTS_ENDPOINT);
+    const filteredComments = unfilteredComments.filter(
+      (comment: Comment) => comment.postId,
+    );
+    setComments(filteredComments);
     setLoading(false);
   };
 
@@ -46,7 +50,7 @@ export const Comments = ({}) => {
   };
 
   const openNewModal = () => {
-    handleOpenModal({ id: "", text: "", postId: "" });
+    handleOpenModal({ id: "", text: "", postId: "", user: "" });
   };
 
   const handleOpenModal = (comment: Comment) => {
@@ -100,7 +104,7 @@ export const Comments = ({}) => {
   }, []);
 
   return (
-    <div className="relative grow flex flex-col mx-4">
+    <div className="relative grow flex flex-col mx-4 overflow-y-scroll">
       {loading ? (
         <p className="self-center uppercase">Loading...</p>
       ) : (

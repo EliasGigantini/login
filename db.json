@@ -1,201 +1,228 @@
 {
   "posts": [
     {
-      "id": "32",
-      "title": "Dovrebbe Funzionare Ora anche",
-      "views": 653,
-      "comments": [
-        {
-          "user": {
-            "firstName": "Elias",
-            "lastName": "Gigantini"
-          },
-          "comment": {
-            "text": "A comment about post 1",
-            "postId": "32"
-          }
-        },
-        {
-          "user": {
-            "firstName": "Anita",
-            "lastName": "Seya"
-          },
-          "comment": {
-            "text": "Another comment for this",
-            "postId": "32"
-          }
-        },
-        {
-          "user": {
-            "firstName": "Anita",
-            "lastName": "Seya"
-          },
-          "comment": {
-            "text": "Another comment for this",
-            "postId": "32"
-          }
-        },
-        {
-          "user": {
-            "firstName": "Anita",
-            "lastName": "Seya"
-          },
-          "comment": {
-            "text": "Another comment for this",
-            "postId": "32"
-          }
-        },
-        {
-          "user": {
-            "firstName": "Anita",
-            "lastName": "Seya"
-          },
-          "comment": {
-            "text": "Another comment for this",
-            "postId": "32"
-          }
-        },
-        {
-          "user": {
-            "firstName": "Anita",
-            "lastName": "Seya"
-          },
-          "comment": {
-            "text": "Another comment for this",
-            "postId": "32"
-          }
-        },
-        {
-          "user": {
-            "firstName": "Anita",
-            "lastName": "Seya"
-          },
-          "comment": {
-            "text": "Another comment for this",
-            "postId": "32"
-          }
-        },
-        {
-          "user": {
-            "firstName": "Anita",
-            "lastName": "Seya"
-          },
-          "comment": {
-            "text": "Another comment for this",
-            "postId": "32"
-          }
-        },
-        {
-          "user": {
-            "firstName": "Anita",
-            "lastName": "Seya"
-          },
-          "comment": {
-            "text": "Another comment for this",
-            "postId": "32"
-          }
-        },
-        {
-          "user": {
-            "firstName": "Anita",
-            "lastName": "Seya"
-          },
-          "comment": {
-            "text": "Another comment for this",
-            "postId": "32"
-          }
-        },
-        {
-          "user": {
-            "firstName": "Anita",
-            "lastName": "Seya"
-          },
-          "comment": {
-            "text": "Another comment for this",
-            "postId": "32"
-          }
-        }
-      ]
-    },
-    {
-      "id": "38",
-      "title": "Panama",
-      "views": 12230,
-      "comments": []
-    },
-    {
-      "id": "40",
-      "title": "Midsommar",
-      "views": 3430,
-      "comments": []
-    },
-    {
-      "id": "41",
-      "title": "lorem ipsum dolor",
-      "views": 3340,
-      "comments": []
-    },
-    {
-      "id": "42",
-      "title": "prova prova prova",
+      "id": "66",
+      "title": "Change this title, thanks",
       "views": 0,
-      "comments": []
+      "comments": 20
     },
     {
-      "id": "56",
-      "title": "provona",
+      "id": "67",
+      "title": "Hello, world!",
       "views": 0,
-      "comments": []
-    },
-    {
-      "id": "58",
-      "title": "testing handleCreate func",
-      "views": 0,
-      "comments": []
-    },
-    {
-      "id": "64",
-      "title": "test funzionamento 1",
-      "views": 0,
-      "comments": []
-    },
-    {
-      "id": "65",
-      "title": "Fixed CreateData id?",
-      "views": 0,
-      "comments": []
+      "comments": 15
     }
   ],
   "comments": [
     {
-      "id": "2",
-      "text": "another comment about post 1",
-      "postId": null
+      "id": "10",
+      "text": "Another comment",
+      "postId": "66",
+      "user": "Anita Seya"
     },
     {
-      "id": 3,
-      "text": "is this working?",
-      "postId": ""
+      "id": "33",
+      "text": "what",
+      "postId": "66",
+      "user": "Elias Gigantini"
     },
     {
-      "id": 4,
-      "text": "Yes it is!",
-      "postId": ""
+      "id": "37",
+      "text": "third",
+      "postId": "66",
+      "user": "Elias Gigantini"
     },
     {
-      "id": 5,
-      "text": "what about a new test??",
-      "postId": ""
+      "id": "38",
+      "text": "fourth",
+      "postId": "66",
+      "user": "Elias Gigantini"
     },
     {
-      "id": 6,
-      "text": "still working noice",
-      "postId": ""
+      "id": "45",
+      "text": "fifth",
+      "postId": "66",
+      "user": "Elias Gigantini"
     },
     {
-      "id": "7",
-      "text": "Test for CreateData -> Delete Error",
-      "postId": ""
+      "id": "46",
+      "text": "sixth",
+      "postId": "66",
+      "user": "Wannabe Eliano"
+    },
+    {
+      "id": "53",
+      "text": "settimo commento",
+      "postId": "66",
+      "user": "Elisa Cadei"
+    },
+    {
+      "id": "67",
+      "text": "ottavo commento",
+      "postId": "66",
+      "user": "Elias Gigantini"
+    },
+    {
+      "id": "68",
+      "text": "nono commento????",
+      "postId": "66",
+      "user": "Elisa Cadei"
+    },
+    {
+      "id": "69",
+      "text": "this is the 10th!!!!",
+      "postId": "66",
+      "user": "Elias Gigantini"
+    },
+    {
+      "id": "70",
+      "text": "prueva para un comento",
+      "postId": "67",
+      "user": "Joga Bonito"
+    },
+    {
+      "id": "71",
+      "text": "esto es Joga Bonito, !HOLA!",
+      "postId": "67",
+      "user": "Elias Gigantini"
+    },
+    {
+      "id": "72",
+      "text": "Error! Pick a user needs sto be pressed everytime... usestate?",
+      "postId": "67",
+      "user": "Wannabe Eliano"
+    },
+    {
+      "id": "73",
+      "text": "Anita seya is commenting Lesgoski Testing",
+      "postId": "66",
+      "user": "Elias Gigantini"
+    },
+    {
+      "id": "76",
+      "text": "diego is commenting for his last time",
+      "postId": "66",
+      "user": "Armando Maradona"
+    },
+    {
+      "id": "77",
+      "text": "Ue Diegoooo",
+      "postId": "66",
+      "user": "Giovanni Giorgio"
+    },
+    {
+      "id": "78",
+      "text": "AUAUAUAU",
+      "postId": "66",
+      "user": "Joga Bonito"
+    },
+    {
+      "id": "79",
+      "text": "ensomma not proprio working",
+      "postId": "66",
+      "user": "Elias Gigantini"
+    },
+    {
+      "id": "80",
+      "text": "Pero' forse sai che...",
+      "postId": "66",
+      "user": "Joga Bonito"
+    },
+    {
+      "id": "81",
+      "text": "let's try to add a new random comment by some random girl on the internet",
+      "postId": "66",
+      "user": "Anita Seya"
+    },
+    {
+      "id": "82",
+      "text": "comments counter is still bugged! Do something ASAP",
+      "postId": "66",
+      "user": "Elias Gigantini"
+    },
+    {
+      "id": "83",
+      "text": "mhhhhh",
+      "postId": "66",
+      "user": "Elisa Cadei"
+    },
+    {
+      "id": "84",
+      "text": "ssdasd",
+      "postId": "66",
+      "user": "Joga Bonito"
+    },
+    {
+      "id": "85",
+      "text": "adding a simple comment here to check everything is fine",
+      "postId": "67",
+      "user": "Elisa Cadei"
+    },
+    {
+      "id": "86",
+      "text": "Mh, it doesn't seem to work",
+      "postId": "67",
+      "user": "Giovanni Giorgio"
+    },
+    {
+      "id": "87",
+      "text": "adding sixth",
+      "postId": "67",
+      "user": "Joga Bonito"
+    },
+    {
+      "id": "88",
+      "text": "wowowowo",
+      "postId": "67",
+      "user": "Giovanni Giorgio"
+    },
+    {
+      "id": "89",
+      "text": "seventh",
+      "postId": "67",
+      "user": "Armando Maradona"
+    },
+    {
+      "id": "90",
+      "text": "nono commento",
+      "postId": "67",
+      "user": "Elias Gigantini"
+    },
+    {
+      "id": "91",
+      "text": "decimo commento",
+      "postId": "67",
+      "user": "Wannabe Eliano"
+    },
+    {
+      "id": "92",
+      "text": "poiop",
+      "postId": "67",
+      "user": "Giovanni Giorgio"
+    },
+    {
+      "id": "93",
+      "text": "adding dodicesimo comment",
+      "postId": "67",
+      "user": "Giovanni Giorgio"
+    },
+    {
+      "id": "94",
+      "text": "tredicesimo",
+      "postId": "67",
+      "user": "Anita Seya"
+    },
+    {
+      "id": "95",
+      "text": "let's add the quattordicesimo",
+      "postId": "67",
+      "user": "Armando Maradona"
+    },
+    {
+      "id": "96",
+      "text": "quindicesimo",
+      "postId": "67",
+      "user": "Elisa Cadei"
     }
   ],
   "profile": {
@@ -218,43 +245,43 @@
       "id": "3",
       "firstName": "Joga",
       "lastName": "Bonito",
-      "age": "19"
+      "age": 19
     },
     {
       "id": "5",
       "firstName": "Armando",
       "lastName": "Maradona",
-      "age": "22"
+      "age": 22
     },
     {
       "id": "6",
       "firstName": "Giovanni",
       "lastName": "Giorgio",
-      "age": "33"
+      "age": 33
     },
     {
       "id": "8",
       "firstName": "Elisa",
       "lastName": "Cadei",
-      "age": "23"
+      "age": 23
     },
     {
       "id": "9",
       "firstName": "Wannabe",
       "lastName": "Eliano",
-      "age": "23"
-    },
-    {
-      "id": "10",
-      "firstName": "Provona",
-      "lastName": "Provolona",
-      "age": "23"
+      "age": 23
     },
     {
       "id": "12",
       "firstName": "Lionel",
       "lastName": "Messi",
-      "age": "37"
+      "age": 37
+    },
+    {
+      "id": "13",
+      "firstName": "Giorno",
+      "lastName": "Giovanna",
+      "age": 17
     }
   ]
 }

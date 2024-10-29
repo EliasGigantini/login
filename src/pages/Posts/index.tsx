@@ -1,8 +1,24 @@
 import { useState, useEffect } from "react";
 import { Plus } from "lucide-react";
-import { getData, updateData, deleteData, postData } from "../../utils/api";
-import { Post } from "../../utils/api/Posts";
-import { POSTS_ENDPOINT } from "../../utils/constants";
+import {
+  getData,
+  updateData,
+  deleteData,
+  postData,
+  fixCommentsCounter,
+} from "../../utils/api";
+import {
+  newUpdateComments,
+  Post,
+  UpdateCommentOperation,
+} from "../../utils/api/Posts";
+import { Comment, deleteIncompleteComments } from "../../utils/api/Comments";
+import { User } from "../../utils/api/Users";
+import {
+  COMMENTS_ENDPOINT,
+  POSTS_ENDPOINT,
+  USERS_ENDPOINT,
+} from "../../utils/constants";
 import { TableComponent } from "../../components/ui/molecules/Table";
 import { PostModal } from "../../components/ui/molecules/Modal/Post";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,6 +27,9 @@ import { useForm } from "react-hook-form";
 
 interface Props {
   post?: Post | null;
+  comment?: Comment | null;
+  user: User | null;
+  postComments: Comment[];
   title: string;
   visibility: boolean;
 }
@@ -18,6 +37,8 @@ interface Props {
 export const Posts = ({}) => {
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState([]);
+  const [users, setUsers] = useState<User[]>([]);
+  const [comments, setComments] = useState([]);
 
   const methods = useForm<Props>({
     defaultValues: { post: null, visibility: false, title: "" },
@@ -34,25 +55,75 @@ export const Posts = ({}) => {
   } = methods;
 
   const post = watch("post");
+  const comment = watch("comment");
+  const postComments = watch("postComments");
   const visibility = watch("visibility");
 
-  const handleGetPosts = async () => {
-    setPosts(await getData(POSTS_ENDPOINT));
+  const fetchPosts = async () => {
+    const fetchedPosts = await getData(POSTS_ENDPOINT);
+    setPosts(await fetchedPosts);
     setLoading(false);
+
+    return fetchedPosts;
+  };
+
+  const fetchComments = async () => {
+    const fetchedComments = await getData(COMMENTS_ENDPOINT);
+    setComments(await fetchedComments);
+
+    const pocom_filtered = fetchedComments.filter(
+      (comment: any) => comment.postId === getValues().post?.id,
+    );
+    console.log("Post Comments: ", pocom_filtered);
+    setValue("postComments", pocom_filtered);
+
+    return fetchedComments;
+  };
+
+  const updateComments = async () => {
+    await deleteIncompleteComments(comments);
+    await fetchComments();
+  };
+
+  const fetchUsers = async () => {
+    const fetchedUsers = await getData(USERS_ENDPOINT);
+    setUsers(await fetchedUsers);
+
+    return fetchedUsers;
+  };
+
+  const filterCommentsForPost = () => {
+    setValue(
+      "postComments",
+      comments.filter(
+        (comment: Comment) => comment.postId === getValues().post?.id,
+      ),
+    );
+
+    const filteredComments = comments.filter(
+      (comment: Comment) => comment.postId === getValues().post?.id,
+    );
+
+    console.log("Fitlered Comments: ", filteredComments);
   };
 
   const toggleModalVisibility = () => {
     clearErrors();
     setValue("visibility", !visibility);
+    filterCommentsForPost();
   };
 
   const openNewModal = () => {
-    handleOpenModal({ id: "", title: "", views: 0 });
+    handleOpenModal({ id: "", title: "", views: 0, comments: 0 });
+    filterCommentsForPost();
   };
 
   const handleOpenModal = (post: Post) => {
     setValue("post", post);
+    setValue("comment", { id: "", text: "", postId: post.id, user: "" });
+    setValue("user", { id: "", firstName: "", lastName: "", age: null });
     toggleModalVisibility();
+    filterCommentsForPost();
   };
 
   const handleDelete = async () => {
@@ -62,9 +133,11 @@ export const Posts = ({}) => {
 
       if (result.id) {
         toggleModalVisibility();
-        handleGetPosts();
+        fetchPosts();
       }
     }
+
+    updateComments();
   };
 
   const handleCreate = async () => {
@@ -75,7 +148,7 @@ export const Posts = ({}) => {
 
       if (result.id) {
         toggleModalVisibility();
-        handleGetPosts();
+        fetchPosts();
       }
     }
 
@@ -89,15 +162,75 @@ export const Posts = ({}) => {
       const result = await updateData({ post });
       console.log(result);
 
-      if (result.id) handleGetPosts();
+      if (result.id) fetchPosts();
     }
 
     console.log(errors);
   };
 
+  const handleComment = async () => {
+    const data = getValues();
+    const isErrorFree = await trigger();
+
+    if (!post) throw new Error("Can't find post");
+    if (isErrorFree && data.comment?.text) {
+      const defaultUser = users[0].firstName + " " + users[0].lastName;
+
+      const commentToPost = {
+        id: data.comment.id,
+        text: data.comment.text,
+        postId: data.comment.postId,
+        user:
+          data.user?.id !== ""
+            ? `${data.user?.firstName} ${data.user?.lastName}`
+            : defaultUser,
+      };
+      setValue("comment", commentToPost);
+
+      const result = await postData({
+        comment: commentToPost,
+        comments: comments,
+      });
+
+      console.log("Result: ", result);
+      await newUpdateComments(
+        data.comment,
+        post,
+        comments,
+        posts,
+        UpdateCommentOperation.Add,
+      );
+
+      const refreshedData = await refreshData();
+      await fixCommentsCounter(refreshedData.posts, refreshedData.comments);
+      await refreshData();
+      setValue("post", { ...post, comments: post.comments + 1 });
+      setValue("comment", { id: "", text: "", postId: post.id, user: "" });
+      filterCommentsForPost();
+    }
+  };
+
+  const refreshData = async () => {
+    const refreshedPosts = await fetchPosts();
+    const refreshedComments = await fetchComments();
+    const refreshedUsers = await fetchUsers();
+
+    return {
+      posts: refreshedPosts,
+      comments: refreshedComments,
+      users: refreshedUsers,
+    };
+  };
+
   useEffect(() => {
-    handleGetPosts();
+    fetchPosts();
+    fetchComments();
+    fetchUsers();
   }, []);
+
+  const CHECK_ERRORS = async () => {
+    await fixCommentsCounter(posts, comments);
+  };
 
   return (
     <div className="relative grow flex flex-col mx-4">
@@ -125,9 +258,15 @@ export const Posts = ({}) => {
               handleCreate={handleCreate}
               handleUpdate={handleUpdate}
               handleDelete={handleDelete}
+              handleComment={handleComment}
+              users={users}
               errorMessage={errors.post?.title?.message}
             />
           )}
+
+          <button onClick={CHECK_ERRORS} className="bg-red text-pure">
+            ERROR CHECKING
+          </button>
         </>
       )}
     </div>

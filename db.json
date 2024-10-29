@@ -4,7 +4,7 @@
       "id": "66",
       "title": "Change this title, thanks",
       "views": 0,
-      "comments": 24
+      "comments": 26
     },
     {
       "id": "67",
@@ -265,6 +265,18 @@
       "text": "e se ti dicessi invece 24??",
       "postId": "66",
       "user": "Anita Seya"
+    },
+    {
+      "id": "104",
+      "text": "Proviamo a vedere se funziona anche con la text area",
+      "postId": "66",
+      "user": "Giovanni Giorgio"
+    },
+    {
+      "id": "105",
+      "text": "Funziona anche con la text area!",
+      "postId": "66",
+      "user": "Elisa Cadei"
     }
   ],
   "profile": {

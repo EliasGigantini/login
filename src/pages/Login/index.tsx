@@ -59,63 +59,74 @@ export const Login = ({}) => {
     setIsLoginValid(false);
   };
 
-  const handleRegister = async () => {};
+  const handleSignUp = () => {
+    navigate(ROUTES.signUp);
+  };
 
   return (
-    <div className="w-full h-screen flex items-center justify-center">
-      <div className="w-96 h-96 p-4 text-base rounded-2xl bg-cream shadow-md shadow-blu/15 pointer-events-auto overflow-hidden">
-        <FormProvider {...methods}>
-          <form className="flex flex-col w-full h-full gap-4 justify-between">
-            <ModalSection variant="column" className="w-full">
-              <InputVariants
-                variant={"input"}
-                value={user}
-                handleChange={(event) =>
-                  handleUser({ user: event.target.value })
-                }
-                name="user"
-                errorMessage={errors.user?.message}
-              />
-              <InputVariants
-                variant={"password"}
-                value={password}
-                handleChange={(event) =>
-                  handlePassword({ password: event.target.value })
-                }
-                name="password"
-                errorMessage={errors.password?.message}
-              />
-            </ModalSection>
+    <div className="flex-1 w-full h-screen p-4 text-base  bg-pure pointer-events-auto overflow-hidden">
+      <FormProvider {...methods}>
+        <form className="flex flex-col items-center justify-center w-full h-full gap-8">
+          <ModalSection variant="column" className="w-72 items-center">
+            <p className="capitalize text-xs leading-none">Log in to</p>
+            <p className="capitalize text-xl font-bold leading-none">
+              nurale project
+            </p>
+          </ModalSection>
 
-            {!isLoginValid && (
-              <ModalSection variant="column">
-                <p className="text-sm text-red">
-                  Invalid username and/or password
-                </p>
-              </ModalSection>
-            )}
+          <ModalSection
+            variant="column"
+            className="h-0.5 w-72 rounded-full bg-cream"
+          />
 
-            <ModalSection variant="column" className="gap-2">
-              <Button
-                type="button"
-                className="flex-1"
-                variant={buttonVariants.login}
-                onClick={handleLogin}
+          <ModalSection variant="column" className="w-72 mt-4">
+            <InputVariants
+              variant={"email"}
+              value={user}
+              handleChange={(event) => handleUser({ user: event.target.value })}
+              name="user"
+              errorMessage={errors.user?.message}
+            />
+            <InputVariants
+              variant={"password"}
+              value={password}
+              handleChange={(event) =>
+                handlePassword({ password: event.target.value })
+              }
+              name="password"
+              errorMessage={errors.password?.message}
+            />
+          </ModalSection>
+
+          <ModalSection variant="column" className="w-72 gap-4 text-center">
+            <Button
+              type="button"
+              className=""
+              variant={buttonVariants.login}
+              onClick={handleLogin}
+            >
+              <p>Login</p>
+            </Button>
+
+            <p className="text-xs text-black">
+              Don't have an account yet?{" "}
+              <a
+                onClick={handleSignUp}
+                className="hover:cursor-pointer text-blu"
               >
-                <p>Login</p>
-              </Button>
-              <Button
-                type="button"
-                className="flex-1"
-                variant={buttonVariants.disabled}
-                onClick={handleRegister}
-              >
-                <p>Register</p>
-              </Button>
-            </ModalSection>
-          </form>
-        </FormProvider>
-      </div>
+                Sign Up
+              </a>
+            </p>
+          </ModalSection>
+
+          <ModalSection
+            variant="column"
+            className={`${isLoginValid ? "invisible" : "visible"}`}
+          >
+            <p className="text-sm text-red">Invalid username and/or password</p>
+          </ModalSection>
+        </form>
+      </FormProvider>
     </div>
   );
 };

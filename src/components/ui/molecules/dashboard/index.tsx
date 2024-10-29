@@ -51,31 +51,28 @@ export const Dashboard = ({}) => {
         <ul
           className={`h-full w-full transition-all text-center bg-cream ${ELEMENTS_ANIMATION_DURATION}`}
         >
-          {DASHBOARD.map(
-            (element) =>
-              element.name !== "Login" && (
-                <li
-                  key={element.name}
-                  className={`${location.pathname === element.href ? "font-medium bg-blu text-pure" : "hover:bg-blu/15 hover:mx-4 hover:text-blu"} ${open ? "flex justify-center content-center" : "flex items-center justify-center"} relative h-12 transition-all duration-200 text-base cursor-pointer grow p-4 overflow-hidden`}
-                  onClick={() => handleNavigation(element.href)}
-                >
-                  <div
-                    className={`absolute w-full font-medium text-sm px-4 transition-all ${ELEMENTS_ANIMATION_DURATION} leading-none ${open ? "visible translate-x-0 text-left" : "invisible -translate-x-64 content-center"}`}
-                  >
-                    {element.name}
-                  </div>
-                  <div
-                    className={`flex content-center w-full h-full justify-center items-center ease-dash-expo transition-all ${ELEMENTS_ANIMATION_DURATION} leading-none ${open ? "invisible translate-x-64" : "translate-x-0 visible"}`}
-                  >
-                    <DashboardIcon
-                      name={element.name}
-                      dimension={IconDimension.small}
-                      animationDuration={AnimationDuration.fast}
-                    />
-                  </div>
-                </li>
-              ),
-          )}
+          {DASHBOARD.map((element) => (
+            <li
+              key={element.name}
+              className={`${location.pathname === element.href ? "font-medium bg-blu text-pure" : "hover:bg-blu/15 hover:mx-4 hover:text-blu"} ${open ? "flex justify-center content-center" : "flex items-center justify-center"} relative h-12 transition-all duration-200 text-base cursor-pointer grow p-4 overflow-hidden`}
+              onClick={() => handleNavigation(element.href)}
+            >
+              <div
+                className={`absolute w-full font-medium text-sm px-4 transition-all ${ELEMENTS_ANIMATION_DURATION} leading-none ${open ? "visible translate-x-0 text-left" : "invisible -translate-x-64 content-center"}`}
+              >
+                {element.name}
+              </div>
+              <div
+                className={`flex content-center w-full h-full justify-center items-center ease-dash-expo transition-all ${ELEMENTS_ANIMATION_DURATION} leading-none ${open ? "invisible translate-x-64" : "translate-x-0 visible"}`}
+              >
+                <DashboardIcon
+                  name={element.name}
+                  dimension={IconDimension.small}
+                  animationDuration={AnimationDuration.fast}
+                />
+              </div>
+            </li>
+          ))}
         </ul>
       </div>
       <Button

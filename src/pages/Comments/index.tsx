@@ -4,7 +4,6 @@ import { Comment } from "../../utils/api/Comments";
 import { COMMENTS_ENDPOINT } from "../../utils/constants";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Plus } from "lucide-react";
 import { TableComponent } from "../../components/ui/molecules/Table";
 import CommentModal from "../../components/ui/molecules/Modal/Comment";
 import { CommentSchema } from "../../components/ui/molecules/Modal/validation";
@@ -109,13 +108,13 @@ export const Comments = () => {
         <p className="self-center uppercase">Loading...</p>
       ) : (
         <>
-          <div className="text-right flex flex-row justify-end mt-24">
+          <div className="text-right flex flex-row justify-between mt-24">
+            <h1 className="capitalize font-medium">Comments</h1>
             <button
               onClick={openNewModal}
-              className="flex flex-row items-center gap-1 rounded-full px-4 py-2 bg-white text-black transition-color ease-in-out duration-300 hover:bg-blu hover:border-blu hover:text-white"
+              className="flex h-10 pointer-events-none flex-row items-center gap-1 rounded-full px-4 opacity-0"
             >
               <p>Create Comment</p>
-              <Plus className="h-4 w-4" />
             </button>
           </div>
           <TableComponent

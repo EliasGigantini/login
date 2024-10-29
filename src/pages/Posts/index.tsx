@@ -36,7 +36,7 @@ interface Props {
 
 export const Posts = ({}) => {
   const [loading, setLoading] = useState(true);
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<Post[]>([]);
   const [users, setUsers] = useState<User[]>([]);
   const [comments, setComments] = useState([]);
 
@@ -202,8 +202,12 @@ export const Posts = ({}) => {
       );
 
       const refreshedData = await refreshData();
-      await fixCommentsCounter(refreshedData.posts, refreshedData.comments);
-      await refreshData();
+      const updatedPosts = await fixCommentsCounter(
+        refreshedData.posts,
+        refreshedData.comments,
+      );
+      setPosts(await updatedPosts);
+      fetchComments();
       setValue("post", { ...post, comments: post.comments + 1 });
       setValue("comment", { id: "", text: "", postId: post.id, user: "" });
       filterCommentsForPost();
@@ -238,10 +242,11 @@ export const Posts = ({}) => {
         <p className="self-center uppercase">Loading...</p>
       ) : (
         <>
-          <div className="text-right flex flex-row justify-end mt-24">
+          <div className="text-right flex flex-row justify-between mt-24">
+            <h1 className="capitalize font-medium">Posts</h1>
             <button
               onClick={openNewModal}
-              className="flex flex-row items-center gap-1 rounded-full px-4 py-2 bg-white text-black transition-color ease-in-out duration-300 hover:bg-blu hover:border-blu hover:text-white"
+              className="flex flex-row h-10 self-end items-center gap-1 rounded-full px-4 py-2 bg-white text-black transition-color ease-in-out duration-300 hover:bg-blu hover:border-blu hover:text-white"
             >
               <p>Create Post</p>
               <Plus className="h-4 w-4" />
@@ -263,10 +268,6 @@ export const Posts = ({}) => {
               errorMessage={errors.post?.title?.message}
             />
           )}
-
-          <button onClick={CHECK_ERRORS} className="bg-red text-pure">
-            ERROR CHECKING
-          </button>
         </>
       )}
     </div>

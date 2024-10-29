@@ -119,10 +119,11 @@ export const Users = ({}) => {
         <p className="self-center uppercase">Loading...</p>
       ) : (
         <>
-          <div className="text-right flex flex-row justify-end mt-24">
+          <div className="text-right flex flex-row justify-between mt-24">
+            <h1 className="capitalize font-medium">Users</h1>
             <button
               onClick={openNewModal}
-              className="flex flex-row items-center gap-1 rounded-full px-4 py-2 bg-white text-black transition-color ease-in-out duration-300 hover:bg-blu hover:border-blu hover:text-white"
+              className="flex flex-row h-10 self-end items-center gap-1 rounded-full px-4 py-2 bg-white text-black transition-color ease-in-out duration-300 hover:bg-blu hover:border-blu hover:text-white"
             >
               <p>Create User</p>
               <Plus className="h-4 w-4" />

@@ -1,5 +1,5 @@
-import { TableHTMLAttributes } from "react";
-import { Eye, Pencil } from "lucide-react";
+import { ReactElement, TableHTMLAttributes } from "react";
+import { Eye, Pencil, MessageCircle } from "lucide-react";
 
 interface Props extends TableHTMLAttributes<HTMLTableElement> {
   className?: string;
@@ -38,7 +38,7 @@ const TableHead = ({ className, ...props }: TableHeadProps) => {
 const TableRow = ({ className, ...props }: TableRowProps) => {
   return (
     <tr
-      className={`text-left transition-all duration-200 hover:bg-blu hover:translate-x-2 hover:text-pure ${className}`}
+      className={`text-left transition-all duration-200 hover:bg-blu hover:translate-x-1 hover:shadow-2xl hover:shadow-blu hover:text-pure ${className}`}
       {...props}
     />
   );
@@ -64,34 +64,57 @@ const TableCell = ({
   switch (variant) {
     case "views":
       return (
-        <td
-          className={`flex flex-row gap-1 items-center text-sm capitalize ${className}`}
-          {...props}
-        >
-          <Eye className="w-4 h-4 opacity-50" />
-          {children}
+        <td className={`capitalize ${className}`} {...props}>
+          <div className="flex flex-row gap-1 items-center">
+            <Eye className="w-4 h-4 opacity-50" />
+            {children}
+          </div>
         </td>
       );
 
     case "id":
       return (
-        <td className={`text-sm capitalize opacity-50 ${className}`} {...props}>
+        <td className={`capitalize opacity-50 ${className}`} {...props}>
           {children}
         </td>
       );
 
     case "edit":
       return (
-        <td className={`text-sm capitalize ${className}`} {...props}>
+        <td className={`capitalize ${className}`} {...props}>
           <button onClick={handleClick}>
             <Pencil className="w-4 h-4" />
           </button>
         </td>
       );
 
+    case "lastName":
+      return (
+        <td className={`text-left capitalize ${className}`} {...props}>
+          {children}
+        </td>
+      );
+
+    case "comments":
+      return (
+        <td className={`capitalize ${className}`} {...props}>
+          <div className="flex flex-row gap-1 items-center">
+            <MessageCircle className="w-4 h-4 opacity-50" />
+            {children}
+          </div>
+        </td>
+      );
+
+    case "age":
+      return (
+        <td className={`text-left capitalize ${className}`} {...props}>
+          {children}
+        </td>
+      );
+
     default:
       return (
-        <td className={`text-sm capitalize ${className}`} {...props}>
+        <td className={`capitalize ${className}`} {...props}>
           {children}
         </td>
       );

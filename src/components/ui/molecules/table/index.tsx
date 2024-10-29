@@ -5,20 +5,20 @@ import {
   TableCell,
   TableRow,
   TableBody,
-} from "../../table";
+} from "../../Table";
 
 interface Props {
-  items: ReadonlyArray<{}>;
+  data: ReadonlyArray<{}>;
   handleOpenModal: (item: any) => void;
 }
 
-export const TableComponent = ({ items, handleOpenModal }: Props) => {
+export const TableComponent = ({ data, handleOpenModal }: Props) => {
   return (
     <Table>
       <TableHead>
         <TableRow className="h-10 pointer-events-none">
-          {items[0] ? (
-            Object.keys(items[0]).map((field) => (
+          {data[0] ? (
+            Object.keys(data[0]).map((field) => (
               <TableHeader key={field}>{field}</TableHeader>
             ))
           ) : (
@@ -28,11 +28,11 @@ export const TableComponent = ({ items, handleOpenModal }: Props) => {
         </TableRow>
       </TableHead>
       <TableBody>
-        {items?.map((item: any) => (
+        {data?.map((item: any) => (
           <TableRow key={item.id} id={item.id} className="h-8">
             {Object.keys(item).map((field) => (
               <TableCell key={`${item.id}_${field}`} variant={field}>
-                {item[field]}
+                {Array.isArray(item[field]) ? item[field].length : item[field]}
               </TableCell>
             ))}
             <TableCell

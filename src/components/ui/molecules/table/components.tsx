@@ -36,7 +36,7 @@ export const TableHead = ({ className, ...props }: TableHeadProps) => {
 };
 
 export const TableRow = ({ className, ...props }: TableRowProps) => {
-  return <tr className={`text-left ${className}`} {...props} />;
+  return <tr className={`${className}`} {...props} />;
 };
 
 export const TableHeader = ({ className, ...props }: TableHeaderProps) => {
@@ -70,7 +70,7 @@ export const TableCell = ({
 
     case "id":
       return (
-        <td className={`text-sm capitalize opacity-50 ${className}`} {...props}>
+        <td className={`text-red ${className}`} {...props}>
           {children}
         </td>
       );
@@ -86,7 +86,7 @@ export const TableCell = ({
 
     default:
       return (
-        <td className={`text-sm capitalize ${className}`} {...props}>
+        <td className={`text-sm capitalize bg-red ${className}`} {...props}>
           {children}
         </td>
       );

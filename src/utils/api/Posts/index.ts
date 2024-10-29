@@ -15,7 +15,6 @@ export const getUpdatePostBody = async (post: Post) => {
         title: post.title,
         views: post.views,
         comments: post.comments
-        // comments: post.comments + 1,
     })
 }
 

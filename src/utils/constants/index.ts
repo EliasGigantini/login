@@ -2,12 +2,14 @@ export const ROUTES = {
     posts: "/",
     comments: "/comments",
     users: "/users",
+    login: "/login",
 };
 
 export const DASHBOARD = [
     { name: "Posts", href: ROUTES.posts },
     { name: "Comments", href: ROUTES.comments },
     { name: "Users", href: ROUTES.users },
+    { name: "Login", href: ROUTES.login },
 ]
 
 export const POST_ENDPOINT = "http://localhost:3000/posts/";

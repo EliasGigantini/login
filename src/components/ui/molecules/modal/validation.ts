@@ -35,3 +35,13 @@ export const UserSchema = z.object({
         .lte(100)
     })
   });
+
+export const LoginSchema = z.object({
+  user: z
+    .string()
+    .email("Please insert a valid email")
+    .min(4, { message: "User must contain at least 4 character(s)" }),
+    password: z
+    .string()
+    .min(6, { message: "Password must contain at least 6 character(s)" }),
+})

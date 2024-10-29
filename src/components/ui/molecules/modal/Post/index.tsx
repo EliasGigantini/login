@@ -103,7 +103,7 @@ const PostModal = ({
     >
       <FormProvider {...methods}>
         <form
-          className={`${post?.visibility ? "translate-y-0" : "translate-y-36"} transition-all ${AnimationDuration.slow} flex flex-col m-6 p-4 gap-4 relative w-96 text-base rounded-2xl bg-pure shadow-md pointer-events-auto overflow-hidden`}
+          className={`${post?.visibility ? "translate-y-0" : "translate-y-36"} transition-all ${AnimationDuration.slow} flex flex-col m-6 p-4 gap-4 relative w-96 text-base rounded-2xl bg-pure shadow-md shadow-blu/15 pointer-events-auto overflow-hidden`}
         >
           <ModalSection variant="exit" action={handleClose} />
           <ModalSection variant="column" className="pt-8">

@@ -5,7 +5,6 @@ import { POSTS_ENDPOINT, POST_ENDPOINT, COMMENTS_ENDPOINT, COMMENT_ENDPOINT, USE
 import { getPostBody, getUpdatePostBody } from "./Posts";
 import { getCommentBody, getUpdateCommentBody } from "./Comments";
 import { getUserBody, getUpdateUserBody  } from "./Users";
-import { any } from "zod";
 
 interface Props {
   post?: Post | null,
@@ -148,38 +147,6 @@ export const isValidField = (field: any) => {
 
   return false;
 }
-
-// export const fixCommentsCounter = async (posts: Post[], comments: Comment[]) => {
-//   if (comments.length === 0) throw new Error("Invalid array.");
-
-//   let outPosts: Post[] = [];
-
-//   let commentsToPostMap: { [key: string] : number } = {};
-//   comments.forEach((comment) => {
-//     if (isValidField(comment.postId)) {
-//       console.log("Comment " + comment.postId + " increasing... " + commentsToPostMap[comment.postId]);
-//       commentsToPostMap[comment.postId] = (commentsToPostMap[comment.postId] || 0) + 1;
-//     }
-//   })
-
-//   posts.forEach(async (post) => {
-//     if (!isValidField(post.id)) throw new Error("Post has invalid id!");
-    
-//     const updatedPost = {
-//       id: post.id,
-//       title: post.title,
-//       views: post.views,
-//       comments: commentsToPostMap[post.id]
-//     };
-//     outPosts.push(updatedPost);
-//     const result = await updateData({ post: updatedPost });
-
-//     if (!result) throw new Error("Updated data had an error...");
-
-//     return outPosts;
-//   })
-// }
-
 
 export const fixCommentsCounter = async (posts: Post[], comments: Comment[]) => {
   if (comments.length === 0) throw new Error("Invalid array.");

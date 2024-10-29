@@ -36,7 +36,7 @@ interface InputsVariantProps {
   handleChange: (e: any) => void;
   errorMessage?: string | "";
   name: string;
-  id: string;
+  id?: string;
 }
 
 export const Input = ({
@@ -64,7 +64,7 @@ export const Input = ({
     <label className={`flex flex-col gap-1 ${labelStyle} ${errorText}`}>
       <div className="flex flex-row w-full justify-between items-center">
         <p>{inputTitle}</p>
-        <p className="text-xs">id: {id}</p>
+        {id !== "" && <p className="text-xs">id: {id}</p>}
       </div>
       <input
         type={type}
@@ -74,9 +74,9 @@ export const Input = ({
         {...props}
       />
       <p
-        className={`mt-2 text-red text-sm ${errorText ? "block" : "invisible"}`}
+        className={`h-6 text-red text-sm transition-all duration-300 ease-dash-expo ${errorText ? "block translate-y-0 opacity-100" : "invisible translate-y-4 opacity-0"}`}
       >
-        Err: {controlString}
+        {controlString}
       </p>
     </label>
   );
@@ -105,7 +105,7 @@ export const TextArea = ({
     <label className={`flex flex-col gap-1 ${labelStyle} ${errorText}`}>
       <div className="flex flex-row w-full justify-between items-center">
         <p>{inputTitle}</p>
-        <p className="text-xs">id: {id}</p>
+        {id !== "" && <p className="text-xs">id: {id}</p>}
       </div>
       <textarea
         name={name}
@@ -115,9 +115,9 @@ export const TextArea = ({
         {...props}
       />
       <p
-        className={`mt-2 text-red text-sm ${errorText ? "block" : "invisible"}`}
+        className={`mt-2 h-6 text-red text-sm ${errorText ? "block" : "invisible"}`}
       >
-        Err: {controlString}
+        {controlString}
       </p>
     </label>
   );
@@ -145,7 +145,21 @@ export const InputVariants = ({
           controlString={errorMessage || ""}
           onChange={handleChange}
           name={name}
-          id={id}
+          id={id ? id : ""}
+        />
+      );
+
+    case "password":
+      return (
+        <Input
+          type="password"
+          labelText={name}
+          variant={inputStyleVariants.default}
+          value={value ?? ""}
+          controlString={errorMessage || ""}
+          onChange={handleChange}
+          name={name}
+          id={id ? id : ""}
         />
       );
 
@@ -159,7 +173,7 @@ export const InputVariants = ({
           controlString={errorMessage || ""}
           onChange={handleChange}
           name={name}
-          id={id}
+          id={id ? id : ""}
         />
       );
   }

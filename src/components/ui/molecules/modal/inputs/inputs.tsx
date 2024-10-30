@@ -1,9 +1,11 @@
 import React, {
   InputHTMLAttributes,
+  ReactElement,
   TextareaHTMLAttributes,
   useEffect,
 } from "react";
 import { useController, useFormContext } from "react-hook-form";
+import { Eye } from "lucide-react";
 
 export const inputStyleVariants = {
   default: "h-10 bg-white rounded-full px-4",
@@ -21,6 +23,7 @@ interface Props {
 interface InputProps extends InputHTMLAttributes<HTMLInputElement>, Props {
   name: string;
   id: string;
+  children?: ReactElement;
 }
 
 interface TextAreaProps
@@ -49,6 +52,7 @@ export const Input = ({
   required,
   name,
   id,
+  children,
   ...props
 }: InputProps) => {
   const { control } = useFormContext();
@@ -62,22 +66,38 @@ export const Input = ({
 
   return (
     <label className={`flex flex-col gap-1 ${labelStyle} ${errorText}`}>
-      <div className="flex flex-row w-full justify-between items-center">
-        <p>{inputTitle}</p>
-        {id !== "" && <p className="text-xs">id: {id}</p>}
-      </div>
-      <input
-        type={type}
-        value={value ?? ""}
-        className={styling}
-        onChange={onChange}
-        {...props}
-      />
-      <p
-        className={`h-6 text-red text-sm transition-all duration-300 ease-dash-expo ${errorText ? "block translate-y-0 opacity-100" : "invisible translate-y-4 opacity-0"}`}
-      >
-        {controlString}
-      </p>
+      {labelText === "EMPTY" ? (
+        <></>
+      ) : (
+        <div className="flex flex-row w-full justify-between items-center">
+          <p>{inputTitle}</p>
+          {id !== "" && <p className="text-xs">id: {id}</p>}
+        </div>
+      )}
+      {children ? (
+        <input
+          type={type}
+          value={value ?? ""}
+          className={styling}
+          onChange={onChange}
+          {...props}
+        />
+      ) : (
+        <input
+          type={type}
+          value={value ?? ""}
+          className={styling}
+          onChange={onChange}
+          {...props}
+        />
+      )}
+      {controlString && (
+        <p
+          className={`h-6 text-red text-xs transition-all duration-300 ease-dash-expo ${errorText ? "block translate-y-0 opacity-100" : "invisible translate-y-4 opacity-0"}`}
+        >
+          {controlString}
+        </p>
+      )}
     </label>
   );
 };
@@ -123,6 +143,38 @@ export const TextArea = ({
   );
 };
 
+export const Comment = ({
+  controlString,
+  inputStyle,
+  variant,
+  labelText,
+  labelStyle,
+  name,
+  id,
+  ...props
+}: TextAreaProps) => {
+  const { control } = useFormContext();
+  const {
+    field: { value, onChange },
+  } = useController({ control, name });
+
+  const errorText = controlString ? "text-red" : "";
+  const styling = inputStyle + " " + variant + " " + errorText;
+  const inputTitle = labelText[0].toUpperCase() + labelText.slice(1);
+
+  return (
+    <label className={`flex flex-col gap-1 ${labelStyle} ${errorText}`}>
+      <textarea
+        name={name}
+        value={value ?? ""}
+        className={`resize-y rounded-lg caret-blu max-h-96 min-h-10 ${styling} bg-white rounded-full px-4`}
+        onChange={onChange}
+        {...props}
+      />
+    </label>
+  );
+};
+
 export const InputVariants = ({
   variant,
   value,
@@ -153,8 +205,57 @@ export const InputVariants = ({
       return (
         <Input
           type="password"
-          labelText={name}
+          placeholder="Password"
+          labelText="EMPTY"
           variant={inputStyleVariants.default}
+          value={value ?? ""}
+          controlString={errorMessage || ""}
+          onChange={handleChange}
+          name={name}
+          id={id ? id : ""}
+        >
+          <button className="w-full h-full">
+            <Eye className="w-4 h-4" />
+          </button>
+        </Input>
+      );
+
+    case "email":
+      return (
+        <Input
+          type="text"
+          placeholder="Email"
+          labelText="EMPTY"
+          variant={inputStyleVariants.default}
+          value={value ?? ""}
+          controlString={errorMessage || ""}
+          onChange={handleChange}
+          name={name}
+          id={id ? id : ""}
+        />
+      );
+
+    case "comment":
+      return (
+        <Input
+          type="text"
+          placeholder="Comment"
+          labelText="EMPTY"
+          variant={inputStyleVariants.default}
+          value={value ?? ""}
+          // controlString={errorMessage || ""}
+          onChange={handleChange}
+          name={name}
+          id={id ? id : ""}
+        />
+      );
+
+    case "commentArea":
+      return (
+        <Comment
+          type="text"
+          labelText={name}
+          placeholder="Comment"
           value={value ?? ""}
           controlString={errorMessage || ""}
           onChange={handleChange}

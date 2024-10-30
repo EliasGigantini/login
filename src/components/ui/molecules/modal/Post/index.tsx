@@ -198,7 +198,7 @@ const PostModal = ({
                 />
 
                 <InputVariants
-                  variant={"input"}
+                  variant={"comment"}
                   value={methods.getValues().comment.text}
                   handleChange={(event) =>
                     handleCommentChange({ text: event.target.value })

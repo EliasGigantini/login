@@ -5,7 +5,7 @@ import {
   TableCell,
   TableRow,
   TableBody,
-} from "../../Table";
+} from "./components";
 
 interface Props {
   data: ReadonlyArray<{}>;

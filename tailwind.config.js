@@ -17,7 +17,6 @@ export default {
       blu: "#747BFF",
     },
     animation: {
-      "pulse-fast": "pulse 900ms ease-in-out infinite",
       shake: "shake 0.82s cubic-bezier(.36,.07,.19,.97) both",
     },
     keyframes: {

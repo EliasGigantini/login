@@ -9,6 +9,9 @@ import { useAuth } from "../components/auth";
 
 const AppRoutes = () => {
   const { isLogged } = useAuth();
+
+  console.log(isLogged);
+
   return (
     <BrowserRouter>
       <Routes>

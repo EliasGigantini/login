@@ -5,7 +5,7 @@ import { COMMENTS_ENDPOINT } from "../../utils/constants";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TableComponent } from "../../components/ui/molecules/Table";
-import CommentModal from "../../components/ui/molecules/Modal/Comment";
+import CommentModal from "../../components/ui/molecules/modal/Comment";
 import { CommentSchema } from "../../components/ui/molecules/Modal/validation";
 
 interface Props {

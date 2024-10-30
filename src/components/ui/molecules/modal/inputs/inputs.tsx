@@ -160,7 +160,6 @@ export const Comment = ({
 
   const errorText = controlString ? "text-red" : "";
   const styling = inputStyle + " " + variant + " " + errorText;
-  const inputTitle = labelText[0].toUpperCase() + labelText.slice(1);
 
   return (
     <label className={`flex flex-col gap-1 ${labelStyle} ${errorText}`}>
@@ -183,10 +182,6 @@ export const InputVariants = ({
   name,
   id,
 }: InputsVariantProps) => {
-  useEffect(() => {
-    console.log("Error Messsage Input: " + errorMessage);
-  }, [errorMessage]);
-
   switch (variant) {
     case "textarea":
       return (

@@ -1,23 +1,17 @@
 import { ButtonHTMLAttributes, ReactElement } from "react";
 
 const buttonVariants = {
-  default:
-    "rounded-full px-4 py-2 bg-white text-black transition-all dash-expo duration-300 hover:bg-blu hover:text-cream",
-  cancel:
-    "rounded-full px-4 py-2 bg-black text-white transition-all dash-expo duration-300 hover:bg-red hover:text-cream",
-  delete:
-    "rounded-full px-4 py-2 bg-red text-white hover:animate-pulse-fast duration-75",
-  close:
-    "rounded-full bg-white text-black transition-all dash-expo duration-300 hover:bg-black hover:text-white",
-  ghost:
-    "rounded-full px-4 py-2 transition-all dash-expo duration-300 hover:text-blu",
-  action:
-    "rounded-full px-4 py-2 bg-black text-white transition-all dash-expo duration-300 hover:text-black hover:bg-cream",
+  default: "bg-blu/15 text-blu hover:bg-blu hover:text-pure",
+  action: "bg-blu text-pure hover:bg-blu hover:text-pure",
+  close: "py-0 px-0 bg-black/15 text-black hover:bg-black hover:text-pure",
   login:
-    "rounded-full px-4 py-2 bg-black text-white transition-all dash-expo duration-300 hover:text-cream hover:bg-blu hover:-translate-y-1",
+    "bg-black text-pure hover:bg-blu hover:text-cream hover:-translate-y-1 hover:shadow hover:shadow-blu",
   register:
-    "rounded-full px-4 py-2 bg-black text-white transition-all dash-expo duration-300 hover:text-cream hover:bg-blu hover:-translate-y-1",
-  disabled: "rounded-full px-4 py-2 bg-white opacity-50 cursor-not-allowed",
+    "bg-black text-pure hover:text-cream hover:bg-blu hover:-translate-y-1",
+  delete: "bg-red/15 text-red hover:bg-red hover:text-pure hover:animate-shake",
+  cancel: "bg-red/15 text-red hover:bg-red hover:text-pure",
+  ghost: "hover:text-blu",
+  disabled: "opacity-50 cursor-not-allowed",
 };
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -36,7 +30,11 @@ const Button = ({
   disabled,
   ...props
 }: Props) => {
-  const styling = className + " " + variant;
+  const styling =
+    "py-2 px-4 transition-all dash-expo duration-300 rounded-full " +
+    variant +
+    " " +
+    className;
 
   return (
     <button

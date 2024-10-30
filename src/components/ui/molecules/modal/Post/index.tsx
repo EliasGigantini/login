@@ -103,94 +103,117 @@ const PostModal = ({
     >
       <FormProvider {...methods}>
         <form
-          className={`${post?.visibility ? "translate-y-0" : "translate-y-36"} transition-all ${AnimationDuration.slow} flex flex-col m-6 p-4 gap-4 relative w-96 text-base rounded-2xl bg-pure shadow-md shadow-blu/15 pointer-events-auto overflow-hidden`}
+          className={`${post?.visibility ? "translate-y-0" : "translate-y-36"} transition-all ${AnimationDuration.slow} flex flex-col gap-4 relative w-96 text-base pointer-events-auto`}
         >
-          <ModalSection variant="exit" action={handleClose} />
-          <ModalSection variant="column" className="pt-8">
-            <InputVariants
-              variant={"input"}
-              value={methods.getValues().post.title}
-              handleChange={(event) =>
-                handleChange({ title: event.target.value })
-              }
-              name="title"
-              id={methods.getValues().post.id}
-              errorMessage={errorMessage}
-            />
-          </ModalSection>
-          <ModalSection variant="row">
-            <ModalRow
-              icon={<Eye className="h-4 w-4" />}
-              data={methods.getValues().post.views ?? "0"}
-            />
-            <Button
-              type="button"
-              className="flex-1"
-              variant={buttonVariants.ghost}
-              onClick={toggleCommentsVisibility}
-            >
-              <ModalRow
-                icon={<MessageCircle className="h-4 w-4" />}
-                data={methods.getValues().post?.comments}
+          <div className="MAIN_TO_DEL flex flex-col gap-4 bg-pure rounded-2xl p-4 border-[1px] border-cream shadow-md shadow-blu/15">
+            <ModalSection variant="exit" action={handleClose} />
+            <ModalSection variant="column" className="pt-8">
+              <InputVariants
+                variant={"input"}
+                value={methods.getValues().post.title}
+                handleChange={(event) =>
+                  handleChange({ title: event.target.value })
+                }
+                name="title"
+                id={methods.getValues().post.id}
+                errorMessage={errorMessage}
               />
-            </Button>
-          </ModalSection>
-
-          <ModalSection variant="row">
-            {!methods.getValues().post.id ? (
-              <>
+            </ModalSection>
+            {!showComments && (
+              <ModalSection variant="row">
+                <ModalRow
+                  icon={<Eye className="h-4 w-4" />}
+                  data={methods.getValues().post.views ?? "0"}
+                />
                 <Button
                   type="button"
-                  className="grow"
-                  variant={
-                    false ? buttonVariants.disabled : buttonVariants.default
-                  }
-                  onClick={handleCreate}
-                  disabled={Boolean(methods.getValues().errors?.title?.message)}
+                  className="flex-1"
+                  variant={buttonVariants.ghost}
+                  onClick={toggleCommentsVisibility}
                 >
-                  <p>Create</p>
+                  <ModalRow
+                    icon={<MessageCircle className="h-4 w-4" />}
+                    data={methods.getValues().post?.comments}
+                  />
                 </Button>
-                <Button
-                  type="button"
-                  className="grow"
-                  variant={buttonVariants.cancel}
-                  onClick={handleClose}
-                >
-                  <p>Cancel</p>
-                </Button>
-              </>
-            ) : (
-              <>
-                <Button
-                  type="button"
-                  className="grow"
-                  variant={
-                    methods.getValues().errors?.title?.message
-                      ? buttonVariants.disabled
-                      : buttonVariants.default
-                  }
-                  onClick={handleUpdate}
-                  disabled={Boolean(methods.getValues().errors?.title?.message)}
-                >
-                  <p>Update</p>
-                </Button>
-                <Button
-                  type="button"
-                  className="grow"
-                  variant={buttonVariants.delete}
-                  onClick={handleDelete}
-                >
-                  <p>Delete</p>
-                </Button>
-              </>
+              </ModalSection>
             )}
-          </ModalSection>
+
+            <ModalSection variant="row">
+              {!methods.getValues().post.id ? (
+                <>
+                  <Button
+                    type="button"
+                    className="grow"
+                    variant={
+                      false ? buttonVariants.disabled : buttonVariants.default
+                    }
+                    onClick={handleCreate}
+                    disabled={Boolean(
+                      methods.getValues().errors?.title?.message,
+                    )}
+                  >
+                    <p>Create</p>
+                  </Button>
+                  <Button
+                    type="button"
+                    className="grow"
+                    variant={buttonVariants.cancel}
+                    onClick={handleClose}
+                  >
+                    <p>Cancel</p>
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button
+                    type="button"
+                    className="grow"
+                    variant={
+                      methods.getValues().errors?.title?.message
+                        ? buttonVariants.disabled
+                        : buttonVariants.default
+                    }
+                    onClick={handleUpdate}
+                    disabled={Boolean(
+                      methods.getValues().errors?.title?.message,
+                    )}
+                  >
+                    <p>Update</p>
+                  </Button>
+                  <Button
+                    type="button"
+                    className="grow"
+                    variant={buttonVariants.delete}
+                    onClick={handleDelete}
+                  >
+                    <p>Delete</p>
+                  </Button>
+                </>
+              )}
+            </ModalSection>
+          </div>
 
           {showComments ? (
-            <>
+            <div className="transition-all duration-1000 rounded-2xl bg-pure p-4 flex flex-col gap-4 border-[1px] border-cream shadow-md shadow-blu/15">
               <ModalSection variant="column">
-                <span />
-                <span />
+                <ModalSection variant="row">
+                  <ModalRow
+                    icon={<Eye className="h-4 w-4" />}
+                    data={methods.getValues().post.views ?? "0"}
+                  />
+                  <Button
+                    type="button"
+                    className="flex-1"
+                    variant={buttonVariants.ghost}
+                    onClick={toggleCommentsVisibility}
+                  >
+                    <ModalRow
+                      icon={<MessageCircle className="h-4 w-4" />}
+                      data={methods.getValues().post?.comments}
+                    />
+                  </Button>
+                </ModalSection>
 
                 <ModalComments
                   comments={methods.getValues().postComments}
@@ -219,7 +242,7 @@ const PostModal = ({
                   <p>Comment</p>
                 </Button>
               </ModalSection>
-            </>
+            </div>
           ) : (
             <></>
           )}

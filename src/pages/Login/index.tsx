@@ -64,7 +64,7 @@ export const Login = ({}) => {
   };
 
   return (
-    <div className="flex-1 w-full h-screen p-4 text-base  bg-pure pointer-events-auto overflow-hidden">
+    <div className="flex-1 w-full h-screen p-4 text-base bg-pure pointer-events-auto overflow-hidden">
       <FormProvider {...methods}>
         <form className="flex flex-col items-center justify-center w-full h-full gap-8">
           <ModalSection variant="column" className="w-72 items-center">
